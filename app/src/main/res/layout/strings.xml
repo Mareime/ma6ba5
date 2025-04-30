@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ma6ba5">Recettes Cuisine</string>
+    <string name="app_name">Recettes Cuisine</string>
     
     <!-- Généraux -->
     <string name="confirmer">Confirmer</string>
