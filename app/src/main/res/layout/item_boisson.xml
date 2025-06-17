@@ -40,10 +40,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titleTextView"
+                android:id="@+id/nameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nom de la recette"
+                android:text="Nom de la boisson"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_dark"
@@ -51,11 +51,11 @@
                 android:ellipsize="end" />
 
             <TextView
-                android:id="@+id/durationTextView"
+                android:id="@+id/preparationTimeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="30 min"
+                android:text="5 min"
                 android:textSize="14sp"
                 android:textColor="@color/text_gray" />
 

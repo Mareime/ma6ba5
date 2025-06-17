@@ -1,41 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ma6ba5">Recettes Cuisine</string>
-    
-    <!-- Généraux -->
-    <string name="confirmer">Confirmer</string>
-    <string name="oui">Oui</string>
-    <string name="non">Non</string>
-    <string name="enregistrer">Enregistrer</string>
-    
-    <!-- Favoris -->
-    <string name="mes_recettes_favorites">Mes recettes favorites</string>
-    <string name="aucune_recette_favorite">Vous n\'avez pas encore de recettes favorites.\nAppuyez sur l\'icône ♥ pour en ajouter.</string>
-    <string name="ajouter_aux_favoris">Ajouter aux favoris</string>
-    <string name="recette_ajoutee_favoris">Recette ajoutée aux favoris</string>
-    <string name="recette_supprimee_favoris">Recette supprimée des favoris</string>
-    
-    <!-- Historique -->
-    <string name="mon_historique">Mon historique</string>
-    <string name="aucun_historique">Vous n\'avez pas encore consulté de recettes</string>
-    <string name="vider_historique">Vider l\'historique</string>
-    <string name="confirmer_vider_historique">Êtes-vous sûr de vouloir vider tout l\'historique ?</string>
-    
-    <!-- Préférences -->
-    <string name="mes_preferences">Mes préférences</string>
-    <string name="theme_de_l_application">Thème de l\'application</string>
-    <string name="theme_clair">Clair</string>
-    <string name="theme_sombre">Sombre</string>
-    <string name="taille_du_texte">Taille du texte</string>
-    <string name="petite">Petite</string>
-    <string name="normale">Normale</string>
-    <string name="grande">Grande</string>
-    <string name="preferences_enregistrees">Préférences enregistrées</string>
-    
-    <!-- Recettes -->
-    <string name="image_de_la_recette">Image de la recette</string>
-    <string name="duree_minutes">%d minutes</string>
-    <string name="details_de_la_recette">Détails de la recette</string>
-    <string name="ingredients">Ingrédients</string>
-    <string name="etapes_de_preparation">Étapes de préparation</string>
+    <string name="app_name">Ma6ba5</string>
+    <string name="ma6ba5">Ma6ba5</string>
+    <string name="duration_format">%d min</string>
+    <string name="recettes_tab">Recettes</string>
+    <string name="boissons_tab">Boissons</string>
+    <string name="favorites">Favoris</string>
+    <string name="recettes_favorites">Recettes Favorites</string>
+    <string name="boissons_favorites">Boissons Favorites</string>
+    <string name="pas_de_favoris">Aucun favori pour le moment</string>
+    <string name="comment_hint">Ajouter un commentaire...</string>
+    <string name="send_button">Envoyer</string>
+    <string name="ingredients_label">Ingrédients:</string>
+    <string name="preparation_label">Préparation:</string>
+    <string name="steps_label">Étapes:</string>
+    <string name="comments_label">Commentaires:</string>
+    <string name="loading_error">Erreur de chargement</string>
+    <string name="network_error">Erreur de connexion</string>
+    <string name="added_to_favorites">Ajouté aux favoris</string>
+    <string name="removed_from_favorites">Retiré des favoris</string>
+    <string name="comment_added">Commentaire ajouté</string>
+    <string name="comment_error">Erreur lors de l\'ajout du commentaire</string>
 </resources>

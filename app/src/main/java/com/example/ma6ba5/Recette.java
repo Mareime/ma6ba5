@@ -1,56 +1,13 @@
 package com.example.ma6ba5;
 
-import java.io.Serializable;
-
-public class Recette implements Serializable {
-    private long id;
+public class Recette {
+    private Long id;
     private String titre;
     private String ingredients;
     private String etapes;
     private int duree;
-    private String image;
-    private String typePlat;
-    private boolean estFavori;
-
-    // Constructeur par défaut
-    public Recette() {
-    }
-
-    // Constructeur complet
-    public Recette(long id, String titre, String ingredients, String etapes, int duree, String image, String typePlat) {
-        this.id = id;
-        this.titre = titre;
-        this.ingredients = ingredients;
-        this.etapes = etapes;
-        this.duree = duree;
-        this.image = image;
-        this.typePlat = typePlat;
-    }
-
-    // Getters et Setters
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
+    private String imageUrl;
+    private boolean preferer;
 
     public String getEtapes() {
         return etapes;
@@ -68,32 +25,44 @@ public class Recette implements Serializable {
         this.duree = duree;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public String getTypePlat() {
-        return typePlat;
+    public boolean isPreferer() {
+        return preferer;
     }
 
-    public void setTypePlat(String typePlat) {
-        this.typePlat = typePlat;
+    public void setPreferer(boolean preferer) {
+        this.preferer = preferer;
     }
 
-    public boolean isEstFavori() {
-        return estFavori;
+    public String getIngredients() {
+        return ingredients;
     }
 
-    public void setEstFavori(boolean estFavori) {
-        this.estFavori = estFavori;
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
-    @Override
-    public String toString() {
+    public String getTitre() {
         return titre;
     }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    // Getters and Setters...
 }

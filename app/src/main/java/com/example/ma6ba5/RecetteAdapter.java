@@ -1,12 +1,13 @@
 package com.example.ma6ba5;
 
-import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,104 +17,74 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class RecetteAdapter extends RecyclerView.Adapter<RecetteAdapter.RecetteViewHolder> {
-    
-    private Context context;
     private List<Recette> recettes;
-    private OnRecetteListener onRecetteListener;
-    private DatabaseHelper dbHelper;
-    
-    public RecetteAdapter(Context context, List<Recette> recettes, OnRecetteListener onRecetteListener) {
-        this.context = context;
+
+    public RecetteAdapter(List<Recette> recettes) {
         this.recettes = recettes;
-        this.onRecetteListener = onRecetteListener;
-        this.dbHelper = new DatabaseHelper(context);
     }
-    
+
     @NonNull
     @Override
     public RecetteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_recette, parent, false);
-        return new RecetteViewHolder(view, onRecetteListener);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recette, parent, false);
+        return new RecetteViewHolder(view);
     }
-    
+
     @Override
     public void onBindViewHolder(@NonNull RecetteViewHolder holder, int position) {
         Recette recette = recettes.get(position);
-        
-        // Afficher les données de la recette
-        holder.tvTitre.setText(recette.getTitre());
-        holder.tvDuree.setText(context.getString(R.string.duree_minutes, recette.getDuree()));
-        holder.tvTypePlat.setText(recette.getTypePlat());
-        
-        // Charger l'image avec Glide
-        if (recette.getImage() != null && !recette.getImage().isEmpty()) {
-            Glide.with(context)
-                    .load(recette.getImage())
-                    .placeholder(R.drawable.placeholder_recette)
-                    .error(R.drawable.placeholder_recette)
-                    .centerCrop()
-                    .into(holder.ivImage);
+
+        holder.titleTextView.setText(recette.getTitre());
+        holder.durationTextView.setText(holder.itemView.getContext().getString(R.string.duration_format, recette.getDuree()));
+
+        // Load image with Glide - IMPROVED with placeholder and error handling
+        if (recette.getImageUrl() != null && !recette.getImageUrl().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(recette.getImageUrl())
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.error_image)
+                    .into(holder.imageView);
         } else {
-            holder.ivImage.setImageResource(R.drawable.placeholder_recette);
+            holder.imageView.setImageResource(R.drawable.placeholder_image);
         }
-        
-        // Mettre à jour l'icône de favori
-        boolean estFavori = dbHelper.estFavori(recette.getId());
-        if (estFavori) {
-            holder.btnFavori.setImageResource(R.drawable.ic_favori_plein);
-        } else {
-            holder.btnFavori.setImageResource(R.drawable.ic_favori_vide);
-        }
-        
-        // Gérer le clic sur le bouton favori
-        holder.btnFavori.setOnClickListener(v -> {
-            if (dbHelper.estFavori(recette.getId())) {
-                // Supprimer des favoris
-                dbHelper.supprimerFavori(recette.getId());
-                holder.btnFavori.setImageResource(R.drawable.ic_favori_vide);
-            } else {
-                // Ajouter aux favoris
-                dbHelper.ajouterFavori(recette.getId());
-                holder.btnFavori.setImageResource(R.drawable.ic_favori_plein);
+
+        // Set favorite icon state
+        holder.favoriteIcon.setImageResource(recette.isPreferer() ?
+                R.drawable.ic_favorite : R.drawable.ic_favorite_border);
+
+        // Set click listener for the whole item
+        // In RecetteAdapter, modify the click listener:
+        holder.itemView.setOnClickListener(v -> {
+            try {
+                Log.d("RecetteAdapter", "Clicking recette with ID: " + recette.getId());
+                Intent intent = new Intent(holder.itemView.getContext(), RecetteDetailActivity.class);
+                intent.putExtra("recette_id", recette.getId());
+                holder.itemView.getContext().startActivity(intent);
+            } catch (Exception e) {
+                Log.e("RecetteAdapter", "Error starting activity: " + e.getMessage(), e);
+                Toast.makeText(holder.itemView.getContext(),
+                        "Erreur lors de l'ouverture: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-    
+
     @Override
     public int getItemCount() {
-        return recettes.size();
+        return recettes != null ? recettes.size() : 0;
     }
-    
-    public void updateData(List<Recette> nouvelleListe) {
-        this.recettes = nouvelleListe;
-        notifyDataSetChanged();
-    }
-    
-    static class RecetteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView ivImage;
-        TextView tvTitre, tvDuree, tvTypePlat;
-        ImageButton btnFavori;
-        OnRecetteListener onRecetteListener;
-        
-        public RecetteViewHolder(@NonNull View itemView, OnRecetteListener onRecetteListener) {
+
+    static class RecetteViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView titleTextView;
+        TextView durationTextView;
+        ImageView favoriteIcon;
+
+        public RecetteViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivImage = itemView.findViewById(R.id.iv_recette_image);
-            tvTitre = itemView.findViewById(R.id.tv_recette_titre);
-            tvDuree = itemView.findViewById(R.id.tv_recette_duree);
-            tvTypePlat = itemView.findViewById(R.id.tv_recette_type);
-            btnFavori = itemView.findViewById(R.id.btn_favori);
-            
-            this.onRecetteListener = onRecetteListener;
-            itemView.setOnClickListener(this);
+            imageView = itemView.findViewById(R.id.imageView);
+            titleTextView = itemView.findViewById(R.id.titleTextView);
+            durationTextView = itemView.findViewById(R.id.durationTextView);
+            favoriteIcon = itemView.findViewById(R.id.favoriteIcon);
         }
-        
-        @Override
-        public void onClick(View v) {
-            onRecetteListener.onRecetteClick(getAdapterPosition());
-        }
-    }
-    
-    public interface OnRecetteListener {
-        void onRecetteClick(int position);
     }
 }
